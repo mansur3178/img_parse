@@ -1,0 +1,15 @@
+import os
+from random import choice
+from telebot import TeleBot, types
+
+TOKEN = ''
+bot = TeleBot(TOKEN)
+
+@bot.message_handler(commands=['W11'])
+def start(message):
+    file = choice(os.listdir('images'))
+    with open(f'images/{file}', 'rb') as f:
+        bot.send_photo(message.chat.id, photo=f)
+
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
